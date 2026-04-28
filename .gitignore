@@ -1,19 +1,2 @@
-RTP-base/output.txt
-RTP-opt/output.txt
-
-pcap/
-log/
-*.p4i
-*.db
-*.pyc
-*.log
-*.pcap
-*.trace
-*.swp
-*.swm
-*.swn
-*.swo
-
-.idea
-.DS_Store
-.vscode/
+# Created by venv; see https://docs.python.org/3/library/venv.html
+*
