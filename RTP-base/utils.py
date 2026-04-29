@@ -14,4 +14,9 @@ class PacketHeader(Packet):
 
 
 def compute_checksum(pkt):
-    return binascii.crc32(bytes(pkt)) & 0xFFFFFFFF
+    # return binascii.crc32(bytes(pkt)) & 0xFFFFFFFF
+    old_checksum = pkt.checksum
+    pkt.checksum = 0
+    result = binascii.crc32(bytes(pkt)) & 0xFFFFFFFF
+    pkt.checksum = old_checksum
+    return result

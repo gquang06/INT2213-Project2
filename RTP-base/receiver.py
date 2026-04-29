@@ -39,15 +39,15 @@ def receiver(receiver_ip, receiver_port, window_size):
             end_ack = PacketHeader(type=3, seq_num=expected_seq_num+1, length=0)
             end_ack.checksum = compute_checksum(end_ack)
             s.sendto(bytes(end_ack), address)
-            print("Connection closed")
+            # print("Connection closed")
             break
 
         # send ACK for received packet if it is not corrupted and in order
-        if (pkt_header.checksum == compute_checksum(pkt_header) 
+        msg = pkt[16 : 16 + pkt_header.length]
+        if (pkt_header.checksum == compute_checksum(pkt_header / msg) 
                 and pkt_header.type == 2 
                 and pkt_header.seq_num == expected_seq_num):
             
-            msg = pkt[16 : 16 + pkt_header.length]
             print(msg.decode("utf-8"), end="")
             expected_seq_num += 1
             ack_pkt = PacketHeader(type=3, seq_num=expected_seq_num, length=0)
